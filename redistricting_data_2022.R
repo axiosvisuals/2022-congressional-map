@@ -44,7 +44,7 @@ states_data$features <- append(states_data$features, TN2)
 
 
 ##old districts
-old_states <- c("Alaska", "Florida", "Louisiana", "Missouri", "New Hampshire", "North Dakota", "Rhode Island", "South Dakota", "Vermont", "Wyoming")
+old_states <- c("Alaska", "Delaware", "Florida", "Louisiana", "Missouri", "New Hampshire", "North Dakota", "South Dakota", "Vermont", "Wyoming")
 old_districts <- geojson_read("https://raw.githubusercontent.com/CivilServiceUSA/us-house/master/us-house/geojson/us-house.geojson")
 
 old_geojson <- keep(old_districts$features, ~.x$properties$state_name %in% old_states)
@@ -60,7 +60,9 @@ for(j in 1:length(old_geojson)) {
 states_data$features <- append(states_data$features, old_geojson)
 
 json_string <- toJSON(states_data)
-write(json_string, "house_districts_2022-03-09.json")
+write(json_string, "2022-03-09-districts-raw.json")
+
+
 
 #####graveyard
 # test <- list(type = "FeatureCollection", features = append(states_data[[1]]$features, states_data[[2]]$features))
