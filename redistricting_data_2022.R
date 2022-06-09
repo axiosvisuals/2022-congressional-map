@@ -28,6 +28,8 @@ TN <- geojson_read("TN_new_districts_clean.geojson")
 LA <- geojson_read("LA_new_districts_clean.geojson")
 NY <- geojson_read("NY_new_districts_clean.geojson")
 MO <- geojson_read("MO_new_districts_clean.geojson")
+MD <- geojson_read("MD_new_districts_clean.geojson")
+NH <- geojson_read("NH_new_districts_clean.geojson")
 
 districtize <- function(data, state) {
     for(j in 1:length(data$features)) {
@@ -43,6 +45,8 @@ TN2 <- districtize(TN, "TN")
 LA2 <- districtize(LA, "LA")
 NY2 <- districtize(NY, "NY")
 MO2 <- districtize(MO, "MO")
+MD2 <- districtize(MD, "MD")
+NH2 <- districtize(NH, "NH")
 
 states_data$features <- append(states_data$features, CT2)
 states_data$features <- append(states_data$features, MS2)
@@ -50,9 +54,11 @@ states_data$features <- append(states_data$features, TN2)
 states_data$features <- append(states_data$features, LA2)
 states_data$features <- append(states_data$features, NY2)
 states_data$features <- append(states_data$features, MO2)
+states_data$features <- append(states_data$features, MD2)
+states_data$features <- append(states_data$features, NH2)
 
 ##old districts
-old_states <- c("Alaska", "Delaware", "New Hampshire", "North Dakota", "South Dakota", "Vermont", "Wyoming")
+old_states <- c("Alaska", "Delaware", "North Dakota", "South Dakota", "Vermont", "Wyoming")
 old_districts <- geojson_read("https://raw.githubusercontent.com/CivilServiceUSA/us-house/master/us-house/geojson/us-house.geojson")
 
 old_geojson <- keep(old_districts$features, ~.x$properties$state_name %in% old_states)
@@ -68,7 +74,7 @@ for(j in 1:length(old_geojson)) {
 states_data$features <- append(states_data$features, old_geojson)
 
 json_string <- toJSON(states_data)
-write(json_string, "2022-05-23-districts-raw.json")
+write(json_string, "2022-06-08-districts-raw.json")
 
 
 
